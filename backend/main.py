@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 import asyncio
 from backend.scheduler import poll_parser
 from shared.config import TELEGRAM_USERNAME, TELEGRAM_BOT_TOKEN
+from backend.agent_client import get_reply_from_agent
 import httpx
 
 app = FastAPI()
@@ -26,7 +27,7 @@ async def receive_order(order: dict):
     reply = await get_reply_from_agent(title, desc)
 
     # 🔹 Добавляем ссылку на Telegram
-    reply += f"\n\nСвяжитесь со мной в Telegram: {TELEGRAM_USERNAME}"
+    reply = await get_reply_from_agent(title, order.get("desc", ""))
 
     # 🔹 Отправка в Telegram
     await notify_user(title, link, contact, reply)
