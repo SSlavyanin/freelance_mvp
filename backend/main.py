@@ -7,7 +7,7 @@ import httpx
 
 app = FastAPI()
 
-AGENT_URL = "http://text-agent:8001/generate"  # адрес микросервиса code_agent
+AGENT_URL = "https://code-agent-qi30.onrender.com/handle_order"  # адрес микросервиса code_agent
 
 @app.get("/")
 def root():
