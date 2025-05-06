@@ -1,4 +1,21 @@
-python-telegram-bot==20.7
-fastapi==0.110.0
-uvicorn==0.27.1
+# === Общие зависимости ===
 python-dotenv
+aiohttp
+httpx
+pydantic
+
+# === Telegram-бот ===
+aiogram==3.*
+
+# === FastAPI-бэкенд ===
+fastapi
+uvicorn[standard]
+
+# === Взаимодействие с AI-агентом через OpenRouter / OpenAI ===
+openai  # можно заменить на openrouter-sdk, если будешь использовать его
+
+# === (Опционально) логирование, утилиты ===
+loguru
+
+# === (Опционально, если нужна сериализация моделей) ===
+orjson
