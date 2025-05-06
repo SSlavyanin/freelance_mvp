@@ -1,6 +1,6 @@
 import httpx
 
-AGENT_URL = "http://localhost:8002/generate"  # адрес сервиса text_agent
+AGENT_URL = "https://code-agent-qi30.onrender.com/handle_order"  # адрес микросервиса code_agent
 
 async def get_reply_from_agent(title: str, description: str) -> str:
     try:
