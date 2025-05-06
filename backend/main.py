@@ -7,11 +7,17 @@ import httpx
 
 app = FastAPI()
 
-AGENT_URL = "http://text-agent:8001/generate"  # адрес микросервиса text_agent
+AGENT_URL = "http://text-agent:8001/generate"  # адрес микросервиса code_agent
+
+@app.get("/")
+def root():
+    return {"status": "OK"}
+
 
 @app.on_event("startup")
 async def start_background_tasks():
     asyncio.create_task(poll_parser())
+
 
 @app.post("/receive_order")
 async def receive_order(order: dict):
@@ -33,6 +39,7 @@ async def receive_order(order: dict):
     await notify_user(title, link, contact, reply)
     return {"status": "ok"}
 
+
 async def notify_user(title, link, contact, reply_text):
     try:
         contact_text = f"\n👤 Контакт: {contact}" if contact else ""
@@ -46,6 +53,7 @@ async def notify_user(title, link, contact, reply_text):
             )
     except Exception as e:
         print("Ошибка при отправке в Telegram:", e)
+
 
 async def get_reply_from_agent(title: str, desc: str) -> str:
     """
